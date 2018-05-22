@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.thehecklers</groupId>
+    <artifactId>javaee-to-spring</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>javaee7-angular</module>
+        <module>spring-java-angular</module>
+        <module>spring-kotlin-angular</module>
+    </modules>
+</project>
