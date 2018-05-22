@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cortez.samples</groupId>
+    <artifactId>javaee7-angular</artifactId>
+    <version>3.10</version>
+    <packaging>war</packaging>
+
+    <name>javaee7-angular</name>
+
+    <prerequisites>
+        <maven>3.1.0</maven>
+    </prerequisites>
+
+    <properties>
+        <!-- Project -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.7</java.version>
+
+        <!-- Plugins -->
+        <version.plugin.compiler>3.1</version.plugin.compiler>
+        <version.plugin.enforcer>1.3.1</version.plugin.enforcer>
+        <version.plugin.war>2.4</version.plugin.war>
+        <version.plugin.jgitflow>1.0-m3</version.plugin.jgitflow>
+        <version.plugin.jrebel>1.1.5</version.plugin.jrebel>
+        <version.plugin.wildfly>1.1.0.Alpha8</version.plugin.wildfly>
+        <version.plugin.glassfish>4.1.1</version.plugin.glassfish>
+
+        <!-- Dependencies -->
+        <version.dependency.javaee>7.0</version.dependency.javaee>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.plugin.compiler}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <debug>true</debug>
+                    <optimize>true</optimize>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${version.plugin.enforcer}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>${java.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${version.plugin.war}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>javaee7-angular</warName>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>${version.plugin.jgitflow}</version>
+                <configuration>
+                    <noDeploy>true</noDeploy>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>jrebel-maven-plugin</artifactId>
+                <version>${version.plugin.jrebel}</version>
+                <executions>
+                    <execution>
+                        <id>generate-rebel-xml</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.plugin.wildfly}</version>
+                <configuration>
+                    <version>10.0.0.Final</version>
+                    <filename>javaee7-angular.war</filename>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.glassfish.embedded</groupId>
+                <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                <version>${version.plugin.glassfish}</version>
+                <configuration>
+                    <port>8080</port>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>deploy</id>
+                        <!-- Workaround to force the deploy goal to not execute on pre-integrations-tests -->
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <app>target/javaee7-angular.war</app>
+                            <contextRoot>javaee7-angular</contextRoot>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>7.0.1</version>
+                <configuration>
+                    <libs>
+                        <lib>remove:openjpa-</lib>
+                        <lib>org.hibernate:hibernate-core:5.2.0.Final</lib>
+                        <lib>org.hibernate.common:hibernate-commons-annotations:5.0.1.Final</lib>
+                        <lib>org.jboss.logging:jboss-logging:3.3.0.Final</lib>
+                        <lib>dom4j:dom4j:1.6.1</lib>
+                        <lib>org.javassist:javassist:3.18.1-GA</lib>
+                        <lib>com.fasterxml:classmate:1.1.0</lib>
+                        <lib>antlr:antlr:2.7.7</lib>
+                    </libs>
+                    <systemVariables>
+                        <javax.persistence.provider>
+                            org.hibernate.jpa.HibernatePersistenceProvider
+                        </javax.persistence.provider>
+                    </systemVariables>
+                    <warFile>target/javaee7-angular.war</warFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${version.dependency.javaee}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
