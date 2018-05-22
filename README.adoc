@@ -1,0 +1,21 @@
+= Making the long road short: How to migrate legacy enterprise Java apps to Spring Boot
+
+== Maintainer
+
+* Mark Heckler
+* mailto:mark@thehecklers.org[mark@thehecklers.org]
+* https://twitter.com/MkHeck[@mkheck on Twitter]
+
+== Purpose
+
+This repo accompanies my session titled "Making the long road short: How to migrate legacy enterprise Java apps to Spring Boot".
+
+== Notes
+
+This session is a thoughtful discussion and demonstration of how to migrate existing Java EE applications to Spring Boot. For those who want or need to know more about moving to a Spring+Spring Boot based development & delivery model, the presenter will offer sound principles and "how tos" - and actually *show* them how to do so by coding the transition live during the session.
+
+Please note that the presenter spent many years developing Java EE applications and respects the resultant apps and those who develop them; this is not a "smackdown". But the question arises frequently enough to warrant a considered introduction to how to actually make it happen.
+
+== Related presentation
+
+https://speakerdeck.com/mkheck/making-the-long-road-short-how-to-migrate-legacy-enterprise-java-apps-to-spring-boot[JavaEE to Spring presentation]
