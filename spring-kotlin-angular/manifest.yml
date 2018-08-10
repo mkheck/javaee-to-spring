@@ -1,0 +1,6 @@
+---
+applications:
+- name: spring-kotlin-angular
+  path: build/libs/spring-kotlin-angular-0.0.1-SNAPSHOT.jar
+  memory: 1G
+
